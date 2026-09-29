@@ -266,9 +266,8 @@ footer.wrap{display:block}
 .xcard footer{padding:10px 0 0;text-align:left;border-top:1px solid #EFF3F4;display:flex;flex-wrap:wrap;gap:4px 14px;font-size:.86rem;color:#536471}
 .xcard footer a{margin-left:auto;color:#1D6FB8;text-decoration:none;font-weight:600}.xcard footer a:hover{background:none;text-decoration:underline}
 
-.views{font-family:var(--mono);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);background:var(--amber-soft);border:2px solid var(--ink);display:inline-block;padding:4px 10px;margin:-14px 0 26px}
+.views{font-family:var(--mono);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);background:var(--amber-soft);border:2px solid var(--ink);display:table;padding:4px 10px;margin:-14px 0 26px}
 .toc .views{margin:18px 0 0}
-.byline{margin-bottom:24px}
 /* ===== share ===== */
 .share-title{font-family:var(--mono);font-weight:500;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--slate);margin:26px 0 10px}
 .share-list{display:flex;flex-wrap:wrap;gap:6px}
@@ -298,6 +297,13 @@ footer.wrap{display:block}
   .xfloat{float:right;clear:both;width:400px;margin:4px -250px 22px 36px}
 }
 @media (max-width:760px){.xrow{grid-template-columns:minmax(0,400px)}}
+
+.byline{margin:0 0 10px}
+.pubdate{display:inline-flex;flex-wrap:wrap;align-items:stretch;border:2px solid var(--ink);font-family:var(--mono);font-weight:500;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;margin:0 0 26px;background:var(--sheet)}
+.pubdate b{background:var(--ink);color:var(--amber);font-weight:500;padding:5px 10px}
+.pubdate time{padding:5px 10px;color:var(--ink)}
+.pubdate span{padding:5px 10px;color:var(--slate);border-left:2px solid var(--ink)}
+.toc-date{font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);margin:0 0 18px;padding-bottom:10px;border-bottom:1px solid var(--rule)}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
@@ -388,7 +394,7 @@ footer.wrap{display:block}
   </div>
 </div>
 
-<main class="wrap article"><nav class="toc" id="toc" aria-label="Contents"><h4>Contents</h4><ol id="toc-list"></ol><div class="share-slot"></div><p class="views count-slot" hidden></p></nav><div class="content">
+<main class="wrap article"><nav class="toc" id="toc" aria-label="Contents"><p class="toc-date">Published <time datetime="2026-09-29">29 Sept 2026</time></p><h4>Contents</h4><ol id="toc-list"></ol><div class="share-slot"></div><p class="views count-slot" hidden></p></nav><div class="content">
 
 <section data-page data-title="Cover" class="active">
   <div class="hero frame" role="img" aria-label="Illustration: two apartment blocks behind a gate on a rainy night. Every light is out. Three small torch lights gather at the gate.">
@@ -419,7 +425,8 @@ footer.wrap{display:block}
   <p class="kicker">Katampe, Abuja · 29 September 2025 · 3 a.m.</p>
   <h1>May Nigeria <span>not happen</span> to you</h1>
   <p class="standfirst">On 29 September 2025, armed robbers overran the apartment compound where I lived in Katampe, Abuja. Two people died that night: Barnabas Danlami, the security guard at our gate, and my neighbour, the ARISE News anchor Somtochukwu “Sommie” Maduagwu. I was the first person to step outside. This is what I saw.</p>
-  <p class="byline">By Sani Yusuf · <time datetime="2026-09-29">Published 29 September 2026</time></p>
+  <p class="byline">By Sani Yusuf</p>
+  <p class="pubdate"><b>Published</b><time datetime="2026-09-29">29 September 2026</time><span>One year on</span></p>
   <p class="views" id="view-count" hidden></p>
   <p class="dedic">For Barnabas and for Sommie. Twenty-nine years old, both of them.</p>
   <button class="start" type="button" data-go="1">Start reading · Part 1</button>
@@ -1583,7 +1590,7 @@ footer.wrap{display:block}
 
 </div></main>
 <aside class="sharebar" aria-label="Share this article"><div class="share-slot"></div></aside>
-<footer class="wrap">May Nigeria Not Happen to You · Sani Yusuf<span id="read-count"></span></footer>
+<footer class="wrap">May Nigeria Not Happen to You · Sani Yusuf · Published 29 September 2026<span id="read-count"></span></footer>
 
 <script>
 (function(){
