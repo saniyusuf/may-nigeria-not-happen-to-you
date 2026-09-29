@@ -1742,11 +1742,11 @@ footer.wrap{display:block}
   function counter(path,cb){fetch(base+'/counter/'+encodeURIComponent(path)+'.json').then(function(r){return r.ok?r.json():null}).then(function(d){var n=d&&d.count?parseInt(String(d.count).replace(/[^0-9]/g,''),10):0;if(n>0)cb(n.toLocaleString('en-GB'))}).catch(function(){})}
   var views=document.getElementById('view-count'),out=document.getElementById('read-count'),sides=[].slice.call(document.querySelectorAll('.count-slot'));
   counter(location.pathname,function(n){
-    var t=n+(n==='1'?' reader':' readers')+' so far';
+    var t=n+(n==='1'?' visit':' visits');
     if(views){views.textContent=t;views.hidden=false}
     sides.forEach(function(x){x.textContent=t;x.hidden=false});
   });
-  counter('read-to-the-end',function(n){if(out)out.textContent=' · Read to the end '+n+(n==='1'?' time':' times')});
+  counter(location.pathname,function(n){if(out)out.textContent=' · '+n+(n==='1'?' visit':' visits')});
 })();
 </script>
 </body>
