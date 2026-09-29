@@ -1739,14 +1739,17 @@ footer.wrap{display:block}
     if(end&&!seen.end&&end.getBoundingClientRect().top<window.innerHeight&&Date.now()-start>120000){seen.end=1;ev('read-to-the-end','Read to the end')}
   }
   window.addEventListener('scroll',check,{passive:true});
-  function counter(path,cb){fetch(base+'/counter/'+encodeURIComponent(path)+'.json').then(function(r){return r.ok?r.json():null}).then(function(d){var n=d&&d.count?parseInt(String(d.count).replace(/[^0-9]/g,''),10):0;if(n>0)cb(n.toLocaleString('en-GB'))}).catch(function(){})}
+  /* GoatCounter stores each answer for up to four hours. Asking with a start date that changes every ten minutes gets a fresh count. */
+  function fresh(){var slot=Math.floor(Date.now()/600000)%3000,d=new Date(Date.UTC(1990,0,1)+slot*86400000);return d.toISOString().slice(0,10)}
+  function counter(path,cb){fetch(base+'/counter/'+encodeURIComponent(path)+'.json?start='+fresh()).then(function(r){return r.ok?r.json():null}).then(function(d){var n=d&&d.count?parseInt(String(d.count).replace(/[^0-9]/g,''),10):0;if(n>0)cb(n.toLocaleString('en-GB'))}).catch(function(){})}
   var views=document.getElementById('view-count'),out=document.getElementById('read-count'),sides=[].slice.call(document.querySelectorAll('.count-slot'));
-  counter(location.pathname,function(n){
+  function show(){counter(location.pathname,function(n){
     var t=n+(n==='1'?' visit':' visits');
     if(views){views.textContent=t;views.hidden=false}
     sides.forEach(function(x){x.textContent=t;x.hidden=false});
-  });
-  counter(location.pathname,function(n){if(out)out.textContent=' · '+n+(n==='1'?' visit':' visits')});
+    if(out)out.textContent=' · '+t;
+  })}
+  show();setInterval(function(){if(!document.hidden)show()},600000);
 })();
 </script>
 </body>
