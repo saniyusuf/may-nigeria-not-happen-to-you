@@ -250,6 +250,9 @@ footer.wrap{display:block}
 .xcard footer{padding:10px 0 0;text-align:left;border-top:1px solid #EFF3F4;display:flex;flex-wrap:wrap;gap:4px 14px;font-size:.86rem;color:#536471}
 .xcard footer a{margin-left:auto;color:#1D6FB8;text-decoration:none;font-weight:600}.xcard footer a:hover{background:none;text-decoration:underline}
 
+.views{font-family:var(--mono);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);background:var(--amber-soft);border:2px solid var(--ink);display:inline-block;padding:4px 10px;margin:-14px 0 26px}
+.toc .views{margin:18px 0 0}
+.byline{margin-bottom:24px}
 /* ===== share ===== */
 .share-title{font-family:var(--mono);font-weight:500;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--slate);margin:26px 0 10px}
 .share-list{display:flex;flex-wrap:wrap;gap:6px}
@@ -358,7 +361,7 @@ footer.wrap{display:block}
   </div>
 </div>
 
-<main class="wrap article"><nav class="toc" id="toc" aria-label="Contents"><h4>Contents</h4><ol id="toc-list"></ol><div class="share-slot"></div></nav><div class="content">
+<main class="wrap article"><nav class="toc" id="toc" aria-label="Contents"><h4>Contents</h4><ol id="toc-list"></ol><div class="share-slot"></div><p class="views count-slot" hidden></p></nav><div class="content">
 
 <section data-page data-title="Cover" class="active">
   <div class="hero frame" role="img" aria-label="Illustration: two apartment blocks behind a gate on a rainy night. Every light is out. Three small torch lights gather at the gate.">
@@ -390,6 +393,7 @@ footer.wrap{display:block}
   <h1>May Nigeria <span>not happen</span> to you</h1>
   <p class="standfirst">On 29 September 2025, armed robbers overran the apartment compound where I lived in Katampe, Abuja. Two people died that night: Barnabas Danlami, the security guard at our gate, and my neighbour, the ARISE News anchor Somtochukwu “Sommie” Maduagwu. I was the first person to step outside. This is what I saw.</p>
   <p class="byline">By Sani Yusuf</p>
+  <p class="views" id="view-count" hidden></p>
   <p class="dedic">For Barnabas and for Sommie. Twenty-nine years old, both of them.</p>
   <button class="start" type="button" data-go="1">Start reading · Part 1</button>
 
@@ -1708,8 +1712,14 @@ footer.wrap{display:block}
     if(end&&!seen.end&&end.getBoundingClientRect().top<window.innerHeight&&Date.now()-start>120000){seen.end=1;ev('read-to-the-end','Read to the end')}
   }
   window.addEventListener('scroll',check,{passive:true});
-  var out=document.getElementById('read-count');
-  if(out)fetch(base+'/counter/'+encodeURIComponent('read-to-the-end')+'.json').then(function(r){return r.ok?r.json():null}).then(function(d){if(d&&d.count)out.textContent=' · Read to the end '+d.count+' times'}).catch(function(){});
+  function counter(path,cb){fetch(base+'/counter/'+encodeURIComponent(path)+'.json').then(function(r){return r.ok?r.json():null}).then(function(d){if(d&&d.count&&d.count!=='0')cb(d.count)}).catch(function(){})}
+  var views=document.getElementById('view-count'),out=document.getElementById('read-count'),sides=[].slice.call(document.querySelectorAll('.count-slot'));
+  counter(location.pathname,function(n){
+    var t=n+(n==='1'?' reader':' readers')+' so far';
+    if(views){views.textContent=t;views.hidden=false}
+    sides.forEach(function(x){x.textContent=t;x.hidden=false});
+  });
+  counter('read-to-the-end',function(n){if(out)out.textContent=' · Read to the end '+n+(n==='1'?' time':' times')});
 })();
 </script>
 </body>
